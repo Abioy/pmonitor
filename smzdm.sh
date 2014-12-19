@@ -19,7 +19,7 @@ sms()
     for i in {0..2};
     do
         echo "smsing $i ..."
-        python ../sms/fetionsms.py -m "$msg" | grep "发送短信成功" 
+        python ../sms/fetionsms.py -m "$msg" | grep "发送短信成功"  
         [ $? -eq 0 ] && return 0
     done
     echo "发送短信失败"
