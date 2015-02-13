@@ -45,7 +45,7 @@ monitor()
 
 main()
 {
-pt="(净水器|冰箱|电磁炉)" 
+pt="(米糊|湿巾|纸尿裤)" 
 if [ $# -ge 1 ]; then
     pt=$1
 fi
