@@ -59,18 +59,18 @@ monitor()
 
 main()
 {
-pt="(米糊|湿巾|纸尿裤)" 
-if [ $# -ge 1 ]; then
-    pt=$1
-fi
-echo "[INFO] restart monitoring $pt ..."
-while true;
-do
-    monitor "SMZDM首页" "http://www.smzdm.com" "$pt" "^.*target=\"_blank\">([^<]*$pt[^<]*)<span\sclass=\"red\">([^<]*)<\/span.*$"
-    monitor "SMZDM发现" "http://fx.smzdm.com"  "$pt" "^.*span\sclass=\"black\">([^<]*$pt[^<]*)<\/span><span\sclass=\"red\">([^<]*)<.*$"
-    monitor "HH首页"    "http://www.huihui.cn" "$pt" "^\s\s*([^<]*$pt[^<]*)<em>([^<]*)<\/em>$"
-    sleep 5
-done
+    pt="(米糊|湿巾|纸尿裤)" 
+    if [ $# -ge 1 ]; then
+        pt=$1
+    fi
+    echo "[INFO] restart monitoring $pt ..."
+    while true;
+    do
+        monitor "SMZDM首页" "http://www.smzdm.com" "$pt" "^.*target=\"_blank\">([^<]*$pt[^<]*)<span\sclass=\"red\">([^<]*)<\/span.*$"
+        monitor "SMZDM发现" "http://fx.smzdm.com"  "$pt" "^.*span\sclass=\"black\">([^<]*$pt[^<]*)<\/span><span\sclass=\"red\">([^<]*)<.*$"
+        monitor "HH首页"    "http://www.huihui.cn" "$pt" "^\s\s*([^<]*$pt[^<]*)<em>([^<]*)<\/em>$"
+        sleep 5
+    done
 }
 
 main $*
