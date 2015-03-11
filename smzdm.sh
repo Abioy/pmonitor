@@ -37,7 +37,7 @@ notify()
         sms "$usr" "$msg"
         [ $? -eq 0 ] || rc = 1
     done
-    return rc
+    return $rc
 }
 
 monitor()
