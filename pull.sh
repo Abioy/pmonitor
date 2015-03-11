@@ -7,7 +7,7 @@ pull()
 
     tmp_fname="tmp/${fname}_${ts}"
 
-    wget "https://raw.githubusercontent.com/Abioy/pmonitor/master/$fname" -O  "$tmp_fname" 2>/dev/null
+    timeout 10 wget -T 10 --header="cache-control: no-control" --no-cache "https://raw.githubusercontent.com/Abioy/pmonitor/master/$fname" -O  "$tmp_fname" 2>/dev/null
     if [ $? -ne 0 ];
     then
         echo "[DEBUG] wget file $fname fail ..."
@@ -59,9 +59,9 @@ main()
     if [ $? -eq 0 ];
     then
         shut_down $fname
-        exit 0
+        return 1
     fi
+    return 0
 }
 
 main $*
-exit 1
