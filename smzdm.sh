@@ -15,15 +15,29 @@ insert()
 
 sms()
 {
+    usr="$1"
+    shift
     msg="$*"
     for i in {0..2};
     do
         echo "smsing $i ..."
-        python ../sms/fetionsms.py -m "$msg" | grep "发送短信成功"  
+        python ../sms/fetionsms.py -m "$msg" -u "$usr" | grep "发送短信成功"  
         [ $? -eq 0 ] && return 0
     done
-    echo "发送短信失败"
+    echo "给$usr发送短信失败"
     return 1
+}
+
+notify()
+{
+    msg="$*"
+    rc = 0
+    cat watcher.lst | while read usr;
+    do
+        sms "$usr" "$msg"
+        [ $? -eq 0 ] || rc = 1
+    done
+    return rc
 }
 
 monitor()
@@ -39,7 +53,7 @@ monitor()
     curl -v "$url" 2>/dev/null | sed -n -r 's/'$match'/\1, \3/p' 2>/dev/null | while read line;
     do
         insert "$line"
-        [ $? -eq 0 ] && echo "[INFO] $id match $pt : $line" && sms "$id got $pt: $line"
+        [ $? -eq 0 ] && echo "[INFO] $id match $pt : $line" && notify "$id got $pt: $line"
     done
 }
 
