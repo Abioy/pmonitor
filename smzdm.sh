@@ -31,11 +31,11 @@ sms()
 notify()
 {
     msg="$*"
-    rc = 0
+    rc=0
     cat watcher.lst | while read usr;
     do
         sms "$usr" "$msg"
-        [ $? -eq 0 ] || rc = 1
+        [ $? -eq 0 ] || rc=1
     done
     return $rc
 }
