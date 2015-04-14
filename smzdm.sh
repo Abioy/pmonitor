@@ -50,7 +50,7 @@ monitor()
     shift
     match="$*"
 #    curl -v "$url" 2>/dev/null | sed -n -r 's/^.*span class="black">([^<]*'$pt'[^<]*)<\/span><span class="red">([^<]*)<.*$/\1, \3/p' 2>/dev/null | while read line;
-    curl -v "$url" 2>/dev/null | sed -n -r 's/'$match'/\1, \3/p' 2>/dev/null | while read line;
+    curl -v -H "User-Agent:Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.101 Safari/537.36" "$url" 2>/dev/null | sed -n -r 's/'$match'/\1, \3/p' 2>/dev/null | while read line;
     do
         insert "$line"
         [ $? -eq 0 ] && echo "[INFO] $id match $pt : $line" && notify "$id got $pt: $line"
