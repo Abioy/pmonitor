@@ -70,7 +70,6 @@ main()
         monitor "HH首页"    "http://www.huihui.cn" "$pt" "^\s\s*([^<]*$pt[^<]*)<em>([^<]*)<\/em>.*$"
         monitor "SMZDM首页" "http://m.smzdm.com"  "$pt" "^\s\s*<h2>([^<]*$pt[^<]*)<\/h2>\n\s*<div\s\s*class=\"tips\"><em>([^<]*)<.*"
         monitor "SMZDM发现" "http://m.faxian.smzdm.com"  "$pt" "^\s\s*<h2>([^<]*$pt[^<]*)<\/h2>\n\s*<div\s\s*class=\"tips\"><em>([^<]*)<.*"
-        echo "sleep ..."
         sleep 5
     done
 }
