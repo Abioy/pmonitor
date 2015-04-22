@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sms_file="log/sms_msg"
+
 insert()
 {
     data="$1"
@@ -52,7 +54,7 @@ monitor()
     curl -L -v -H "User-Agent:Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.101 Safari/537.36" "$url" 2>/dev/null | tr -d "\r" | sed -r -n -e '/'$pt'/ {N;s/'$match'/\1, \3/p}' 2>/dev/null | while read line;
     do
         insert "$line"
-        [ $? -eq 0 ] && echo "[INFO] $id match $pt : $line" && notify "$id got $pt: $line"
+        [ $? -eq 0 ] && echo "[INFO] $id match $pt : $line" && echo "${id}:${line}, " >> $sms_file
     done
 }
 
@@ -65,12 +67,21 @@ main()
     echo "[INFO] restart monitoring $pt ..."
     while true;
     do
+        sms_file="log/sms_msg.`date +%s`"
 #        monitor "SMZDM首页" "http://www.smzdm.com" "$pt" "^.*target=\"_blank\">([^<]*$pt[^<]*)<span\sclass=\"red\">([^<]*)<\/span.*$"
 #        monitor "SMZDM发现" "http://faxian.smzdm.com"  "$pt" "^.*span\sclass=\"black\">([^<]*$pt[^<]*)<\/span><span\sclass=\"red\">([^<]*)<.*$"
         monitor "HH首页"    "http://www.huihui.cn" "$pt" "^\s\s*([^<]*$pt[^<]*)<em>([^<]*)<\/em>.*$"
         monitor "SMZDM首页" "http://m.smzdm.com"  "$pt" "^\s\s*<h2>([^<]*$pt[^<]*)<\/h2>\n\s*<div\s\s*class=\"tips\"><em>([^<]*)<.*"
         monitor "SMZDM发现" "http://m.faxian.smzdm.com"  "$pt" "^\s\s*<h2>([^<]*$pt[^<]*)<\/h2>\n\s*<div\s\s*class=\"tips\"><em>([^<]*)<.*"
-        sleep 5
+        if [ -s "$sms_file" ];
+        then
+            msg=`cat $sms_file | tr "\n" " "`
+            echo "[INFO] send ! `echo $msg`"
+            notify "got $pt: $msg"
+            rm -f "$sms_file"
+            sleep 40
+        fi
+        sleep 20
     done
 }
 
