@@ -30,15 +30,25 @@ sms()
     return 1
 }
 
+async_wx_txt_msg()
+{
+    msg="$*"
+    echo -n "$msg" > /tmp/smzdm_msg
+    echo "发送微信消息提醒"
+    return 0
+}
+
 notify()
 {
     msg="$*"
     rc=0
-    cat watcher.lst | while read usr;
-    do
-        sms "$usr" "$msg"
-        [ $? -eq 0 ] || rc=1
-    done
+#    cat watcher.lst | while read usr;
+#    do
+#        sms "$usr" "$msg"
+#        [ $? -eq 0 ] || rc=1
+#    done
+    async_wx_txt_msg "$msg"
+    [ $? -eq 0 ] || rc=1
     return $rc
 }
 
@@ -60,7 +70,7 @@ monitor()
 
 main()
 {
-    pt="(米糊|湿巾|纸尿裤|洗衣液)"
+    pt="(纸尿裤|奶嘴|Kindle)"
     if [ $# -ge 1 ]; then
         pt=$1
     fi
