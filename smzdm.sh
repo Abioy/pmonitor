@@ -70,7 +70,8 @@ monitor()
 
 main()
 {
-    pt="(纸尿裤|奶嘴|Kindle)"
+    pt="(西门子.*洗碗机|洗碗机.*西门子)"
+
     if [ $# -ge 1 ]; then
         pt=$1
     fi
