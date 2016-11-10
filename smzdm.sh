@@ -76,13 +76,14 @@ monitor()
     curl -L -v -H "User-Agent:Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.101 Safari/537.36" "$url" 2>/dev/null | tr -d "\r" | sed -r -n -e '/'$pt'/ {N;s/'$match'/\1, \3/p}' 2>/dev/null | while read line;
     do
         insert "$line"
-        [ $? -eq 0 ] && echo "[INFO] $id match $pt : $line" && echo "${id}:${line}, " >> $sms_file
+        # for webchat
+        [ $? -eq 0 ] && echo "[INFO] $id match $pt : $line" && echo "${id}:<a href=\"${url}\">${line}</a>, " >> $sms_file
     done
 }
 
 main()
 {
-    pt="(洗碗机|美赞臣.*奶粉|奶粉.*美赞臣|纸尿裤)"
+    pt="(洗碗机|美赞臣|纸尿裤|拉拉裤)"
 
     if [ $# -ge 1 ]; then
         pt=$1
