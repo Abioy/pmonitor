@@ -84,7 +84,7 @@ monitor()
 
 main()
 {
-    pt="(美赞臣|纸尿裤|欧乐|尼康|亮碟)"
+    pt="(美赞臣|Prime|欧乐|亮碟)"
 
     if [ $# -ge 1 ]; then
         pt=$1
