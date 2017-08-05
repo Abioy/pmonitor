@@ -1,0 +1,1 @@
+*/1 * * * * bash /home/abioy/local/heater/run.sh 2>&1 >/dev/null
