@@ -41,7 +41,8 @@ async_wx_txt_msg()
 wx_txt_msg()
 {
     msg="$*"
-    python ../wechat_notify/wechat_notify.py "$msg"
+#    python ../wechat_notify/wechat_notify.py "$msg"
+    python3.3 ../wechat_notify/wechat_notify_3.py "$msg"
     echo "发送微信消息提醒"
     return 0
 }
