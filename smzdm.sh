@@ -12,7 +12,6 @@ insert()
         return 1
     fi
     echo $data > $fpath
-    ls -rt db/* | head -n -50 | while read fname_to_del; do rm -f ${fname_to_del} 2>&1 >/dev/null ; done
     return 0
 }
 
