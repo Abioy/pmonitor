@@ -1,0 +1,1 @@
+<a class='tile_item sync'>{url:=@href}<div><div class='tii_title'>{title:=.}</div><div class='below_icons'>{discount:=normalize-space(.)}</div><div class='tii_price'>{price:=normalize-space(.)}</div></div></a>*
