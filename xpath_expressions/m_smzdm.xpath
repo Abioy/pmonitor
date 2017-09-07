@@ -1,0 +1,1 @@
+//li[a][h2]/div[@class='tips']/{'price':em, 'url':../a/@href, 'title':../h2}
