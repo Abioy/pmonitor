@@ -1,0 +1,1 @@
+<div class='gl-i-wrap'>{c:=@class}<div class='p-img'><a>{title:=@title, url:=@href}</a></div><div class='p-price'>{price:=.}</div></div>*
