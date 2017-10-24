@@ -110,16 +110,5 @@ main()
     done
 }
 
-get_xpath()
-{
-    flag=./flag.0
-    if [ -e $flag ];
-    then
-        rm $flag;
-        return 0;
-    fi
-}
-
-get_xpath "hello"
 main $*
 exit 1
