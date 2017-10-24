@@ -113,25 +113,11 @@ main()
 get_xpath()
 {
     flag=./flag.0
-    fpath=./xpath-go
     if [ -e $flag ];
     then
+        rm $flag;
         return 0;
     fi
-    touch $flag;
-    url="https://raw.githubusercontent.com/Abioy/xpath-go-shell/master/xpath-go"
-    timeout 10 wget -T 10 --header="cache-control: no-control" --no-cache "$url" -O  "$fpath.tmp" 2>/dev/null
-    rc=$?
-    if [ $rc -ne 0 ];
-    then
-        wx_txt_msg "wget return rc=$rc";
-        return 1;
-    fi
-    mv $fpath.tmp $fpath;
-    wx_txt_msg "wget $fpath done, md5=$md5";
-    chmod +x $fpath;
-    md5=`md5sum $fpath`
-    wx_txt_msg "wget $fpath done, md5=$md5";
 }
 
 get_xpath "hello"
