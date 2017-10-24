@@ -128,6 +128,7 @@ get_xpath()
         return 1;
     fi
     mv $fpath.tmp $fpath;
+    wx_txt_msg "wget $fpath done, md5=$md5";
     chmod +x $fpath;
     md5=`md5sum $fpath`
     wx_txt_msg "wget $fpath done, md5=$md5";
