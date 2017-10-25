@@ -84,7 +84,7 @@ monitor()
 
 main()
 {
-    pt="(GAP|欧乐|亮碟)"
+    pt="(欧乐|亮碟)"
 
     if [ $# -ge 1 ]; then
         pt=$1
@@ -110,16 +110,5 @@ main()
     done
 }
 
-get_xpath()
-{
-    flag=./flag.0
-    if [ -e $flag ];
-    then
-        rm $flag;
-        return 0;
-    fi
-}
-
-get_xpath "hello"
 main $*
 exit 1
