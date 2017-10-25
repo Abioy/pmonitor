@@ -144,7 +144,5 @@ get_file()
     return 1;
 }
 
-#get_xpath "hello"
-clr_flag
 main $*
 exit 1
