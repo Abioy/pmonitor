@@ -118,7 +118,7 @@ main()
 
 get_xpath()
 {
-    flag=./flag.1
+    flag=./flag.2
     if [ -e $flag ];
     then
         return 0;
@@ -127,7 +127,7 @@ get_xpath()
     mkdir -p xpath_expressions
     fname="xpath-go"
     tmp_fname="xpath-go.tmp"
-    timeout 10 wget -T 10 --header="cache-control: no-control" --no-cache "https://raw.githubusercontent.com/Abioy/xpath-go-shell/master/$fname" -O  "$tmp_fname" 2>/dev/null
+    timeout 20 wget -T 20 --header="cache-control: no-control" --no-cache "https://raw.githubusercontent.com/Abioy/xpath-go-shell/master/$fname" -O  "$tmp_fname" 2>/dev/null
     if [ $? -eq 0 ]; then
         md5=`md5sum $tmp_fname`
         chmod +x $tmp_fname
