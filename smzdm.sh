@@ -118,18 +118,20 @@ main()
 
 get_xpath()
 {
-    flag=./flag.0
+    flag=./flag.1
     if [ -e $flag ];
     then
         return 0;
     fi
     touch $flag
     mkdir -p xpath_expressions
-    fname="xpath_expressions/m_smzdm.xpath"
-    tmp_fname="xpath_expressions/m_smzdm.xpath"
-    timeout 10 wget -T 10 --header="cache-control: no-control" --no-cache "https://raw.githubusercontent.com/Abioy/pmonitor/master/$fname" -O  "$tmp_fname" 2>/dev/null
+    fname="xpath-go"
+    tmp_fname="xpath-go.tmp"
+    timeout 10 wget -T 10 --header="cache-control: no-control" --no-cache "https://raw.githubusercontent.com/Abioy/xpath-go-shell/master/$fname" -O  "$tmp_fname" 2>/dev/null
     if [ $? -eq 0 ]; then
         md5=`md5sum $tmp_fname`
+        chmod +x $tmp_fname
+        mv $tmp_fname $fname
         wx_txt_msg "wget $fname done, md5=$md5"
         return 0;
     fi
@@ -137,6 +139,6 @@ get_xpath()
     return 1;
 }
 
-#get_xpath "hello"
+get_xpath "hello"
 main $*
 exit 1
