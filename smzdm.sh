@@ -116,7 +116,12 @@ main()
     done
 }
 
-get_xpath()
+clr_flag()
+{
+    rm ./flag.*
+}
+
+get_file()
 {
     flag=./flag.2
     if [ -e $flag ];
@@ -139,6 +144,7 @@ get_xpath()
     return 1;
 }
 
-get_xpath "hello"
+#get_xpath "hello"
+clr_flag
 main $*
 exit 1
