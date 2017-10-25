@@ -51,17 +51,10 @@ notify()
 {
     msg="$*"
     rc=0
-#    cat watcher.lst | while read usr;
-#    do
-#        sms "$usr" "$msg"
-#        [ $? -eq 0 ] || rc=1
-#    done
-
-#    async_wx_txt_msg "$msg"
 
     wx_txt_msg "$msg"
-    
     [ $? -eq 0 ] || rc=1
+    
     return $rc
 }
 
@@ -96,11 +89,6 @@ main()
     while true;
     do
         sms_file="log/sms_msg.`date +%s`"
-#        monitor "SMZDM首页" "http://www.smzdm.com" "$pt" "^.*target=\"_blank\">([^<]*$pt[^<]*)<span\sclass=\"red\">([^<]*)<\/span.*$"
-#        monitor "SMZDM发现" "http://faxian.smzdm.com"  "$pt" "^.*span\sclass=\"black\">([^<]*$pt[^<]*)<\/span><span\sclass=\"red\">([^<]*)<.*$"
-#        monitor "HH首页"    "http://www.huihui.cn" "$pt" "^\s\s*([^<]*$pt[^<]*)<em>([^<]*)<\/em>.*$"
-#        monitor "SMZDM首页" "http://m.smzdm.com"  "$pt" "^\s\s*<h2>([^<]*$pt[^<]*)<\/h2>\n\s*<div\s\s*class=\"tips\"><em>([^<]*)<.*"
-#        monitor "SMZDM发现" "http://m.faxian.smzdm.com"  "$pt" "^\s\s*<h2>([^<]*$pt[^<]*)<\/h2>\n\s*<div\s\s*class=\"tips\"><em>([^<]*)<.*"
         read p q < ./xpath_expressions/m_smzdm.xpath
         monitor "" "http://m.smzdm.com"  "$pt" "$p" "$q"
         monitor "" "http://m.faxian.smzdm.com"  "$pt" "$p" "$q"
@@ -116,33 +104,6 @@ main()
     done
 }
 
-clr_flag()
-{
-    rm ./flag.*
-}
-
-get_file()
-{
-    flag=./flag.2
-    if [ -e $flag ];
-    then
-        return 0;
-    fi
-    touch $flag
-    mkdir -p xpath_expressions
-    fname="xpath-go"
-    tmp_fname="xpath-go.tmp"
-    timeout 20 wget -T 20 --header="cache-control: no-control" --no-cache "https://raw.githubusercontent.com/Abioy/xpath-go-shell/master/$fname" -O  "$tmp_fname" 2>/dev/null
-    if [ $? -eq 0 ]; then
-        md5=`md5sum $tmp_fname`
-        chmod +x $tmp_fname
-        mv $tmp_fname $fname
-        wx_txt_msg "wget $fname done, md5=$md5"
-        return 0;
-    fi
-    wx_txt_msg "wget $fname fail"
-    return 1;
-}
 
 main $*
 exit 1
