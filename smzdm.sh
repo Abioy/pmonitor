@@ -76,19 +76,18 @@ monitor()
     do
         insert "$line"
         [ $? -eq 0 ] || continue
-#        echo "$line" | python -c "import json; import sys; reload(sys); sys.setdefaultencoding('utf-8'); import re; j=json.loads(sys.stdin.read()); print re.sub('\s', '', j['url']), re.sub('\s','',j['price']), ' '.join(j['title'].split());" |
         echo "$line" | python3.3 -c "import json; import sys; import re; j=json.loads(sys.stdin.read()); print(re.sub('\s', '', j['url']) + ' ' + re.sub('\s','',j['price']) + ' ' +  ' '.join(j['title'].split()));" |
         while read target_url price title;
         do
             # for webchat
-            echo "[INFO] $id match $pt : $line" && echo "<a href=\"${target_url}\">${title}</a>, ${price}" >> $sms_file && echo -e "\n" >> $sms_file
+            echo "[INFO] $id match $pt : $line" && echo "<a href=\"${target_url}\">${title}</a>,${price} " >> $sms_file && echo -e "\n" >> $sms_file
         done
     done
 }
 
 main()
 {
-    pt="(XFX|欧乐|亮碟)"
+    pt="(欧乐|亮碟)"
 
     if [ $# -ge 1 ]; then
         pt=$1
@@ -109,7 +108,7 @@ main()
         then
             msg=`cat $sms_file | tr "\n" " "`
             echo "[INFO] send ! `echo $msg`"
-            notify "got $pt:\n$msg"
+            notify "got $pt: $msg"
             rm -f "$sms_file"
             sleep 40
         fi
