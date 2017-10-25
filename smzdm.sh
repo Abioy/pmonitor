@@ -81,14 +81,14 @@ monitor()
         while read target_url price title;
         do
             # for webchat
-            echo "[INFO] $id match $pt : $line" && echo "<a href=\"${target_url}\">${title}</a>,${price}<br/>" >> $sms_file
+            echo "[INFO] $id match $pt : $line" && echo "<a href=\"${target_url}\">${title}</a>, ${price}" >> $sms_file && echo -e "\n" >> $sms_file
         done
     done
 }
 
 main()
 {
-    pt="(YAXEL|欧乐|亮碟)"
+    pt="(XFX|欧乐|亮碟)"
 
     if [ $# -ge 1 ]; then
         pt=$1
@@ -109,7 +109,7 @@ main()
         then
             msg=`cat $sms_file | tr "\n" " "`
             echo "[INFO] send ! `echo $msg`"
-            notify "got $pt:<br/>$msg"
+            notify "got $pt:\n$msg"
             rm -f "$sms_file"
             sleep 40
         fi
@@ -138,6 +138,6 @@ get_xpath()
     return 1;
 }
 
-get_xpath "hello"
+#get_xpath "hello"
 main $*
 exit 1
