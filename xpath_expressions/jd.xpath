@@ -1,1 +1,1 @@
-//div[@class='gl-i-wrap']//div[@class='p-img']/a/{'title':@title, 'url':@href, 'price':../../div[@class='p-price']}
+//div[@class="gl-i-wrap"]//div[@class="p-img"]/a {"title":"@title","url":"@href","price":"../../div[@class=\"p-price\"]"}
