@@ -80,7 +80,7 @@ monitor()
 
 main()
 {
-    pt="(欧乐|亮碟)"
+    pt="(亮碟)"
 
     if [ $# -ge 1 ]; then
         pt=$1
