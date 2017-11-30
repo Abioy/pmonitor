@@ -112,7 +112,7 @@ main()
         
         if [ $loop -eq 3 ]; then
             loop=0
-            new_wan_ip=`timeout 10 wget -T 10 -q --user-agent='curl/7.29.0' http://members.3322.org/dyndns/getip 2>/dev/null`
+            new_wan_ip=`timeout 10 wget -T 10 -q --user-agent='curl/7.29.0' http://members.3322.org/dyndns/getip 2>/dev/null -O -`
             old_wan_ip=${wan_ip}
             [ "X${new_wan_ip}" == "X${wan_ip}" ] || [ "X${new_wan_ip}" == "X" ] || echo -n "${new_wan_ip}" > ${wan_ip_file} && wan_ip=${new_wan_ip} && notify "WanIP change: ${old_wan_ip} -> ${new_wan_ip}"
         fi
