@@ -110,7 +110,7 @@ main()
         fi
         sleep 20
         
-        if [ loop -eq 3 ]; then
+        if [ $loop -eq 3 ]; then
             loop=0
             new_wan_ip=`timeout 10 wget -T 10 -q --user-agent='curl/7.29.0' http://members.3322.org/dyndns/getip 2>/dev/null`
             old_wan_ip=${wan_ip}
