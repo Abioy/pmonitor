@@ -1,6 +1,9 @@
 #!/bin/bash
 
 sms_file="log/sms_msg"
+wan_ip_file="wan_ip"
+declare wan_ip=""
+declare loop=2
 
 insert()
 {
@@ -85,9 +88,14 @@ main()
     if [ $# -ge 1 ]; then
         pt=$1
     fi
-    echo "[INFO] restart monitoring $pt ..."
+    echo "[INFO] restart monitoring $pt ...";
+    
+    touch ${wan_ip_file};
+    read wan_ip < ${wan_ip_file};
+    
     while true;
     do
+        loop=$(($loop+1))
         sms_file="log/sms_msg.`date +%s`"
         read p q < ./xpath_expressions/m_smzdm.xpath
         monitor "" "http://m.smzdm.com"  "$pt" "$p" "$q"
@@ -101,6 +109,13 @@ main()
             sleep 40
         fi
         sleep 20
+        
+        if [ loop -eq 3 ]; then
+            loop=0
+            new_wan_ip=`timeout 10 wget -T 10 -q --user-agent='curl/7.29.0' http://members.3322.org/dyndns/getip 2>/dev/null`
+            old_wan_ip=${wan_ip}
+            [ "X${new_wan_ip}" == "X${wan_ip}" ] || [ "X${new_wan_ip}" == "X" ] || echo -n "${new_wan_ip} > ${wan_ip_file} && wan_ip=${new_wan_ip} && notify "WanIP change: ${old_wan_ip} -> ${new_wan_ip}"
+        done
     done
 }
 
