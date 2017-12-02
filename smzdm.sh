@@ -117,7 +117,7 @@ main()
             if [ "X${new_wan_ip}" != "X${wan_ip}" ] && [ "X${new_wan_ip}" != "X" ]; then
                 echo -n "${new_wan_ip}" > ${wan_ip_file}
                 wan_ip=${new_wan_ip}
-                echo "WanIP change: ${old_wan_ip} -> ${new_wan_ip}"
+                notify "WanIP change: ${old_wan_ip} -> ${new_wan_ip}"
             fi
         fi
     done
