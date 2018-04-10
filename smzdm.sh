@@ -83,7 +83,7 @@ monitor()
 
 main()
 {
-    pt="(亮碟)"
+    pt="(纸尿裤|湿巾)"
     
     
     if [ $# -ge 1 ]; then
