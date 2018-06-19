@@ -1,1 +1,1 @@
-//li[h2]/div[@class="tips"] {"price":"em","url":"../a/@href","title":"../h2"}
+//li[@class="card-group-list"]/a/div/div[@class="zm-card-content"] {"price":"div[@class=\\"card-price\\"]","url":"../../@href","title":"div[@class=\\"zm-card-title\\"]"}

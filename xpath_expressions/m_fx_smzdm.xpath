@@ -1,0 +1,1 @@
+//li[@class="card-group-list"]/a/div/div[@class="zm-card-content"] {"price":"div[@class=\\"zm-card-price\\"]","url":"../../@href","title":"div[@class=\\"zm-card-title\\"]"}
