@@ -83,7 +83,7 @@ monitor()
 
 main()
 {
-    pt="(纸尿裤|湿巾)"
+    pt="(纸尿裤|湿巾|Adidas)"
     
     
     if [ $# -ge 1 ]; then
@@ -132,6 +132,8 @@ pull()
 }
 
 main $*
+if [ ! -e "xpath_expressions/m_fx_smzdm.xpath" ]; then
 pull "xpath_expressions/m_fx_smzdm.xpath" "xpath_expressions/m_fx_smzdm.xpath"
 pull "xpath_expressions/m_smzdm.xpath" "xpath_expressions/m_smzdm.xpath"
+fi
 exit 1
