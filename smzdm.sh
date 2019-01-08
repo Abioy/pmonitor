@@ -100,6 +100,7 @@ main()
         sms_file="log/sms_msg.`date +%s`"
         read p q < ./xpath_expressions/m_smzdm.xpath
         monitor "" "http://m.smzdm.com"  "$pt" "$p" "$q"
+        read p q < ./xpath_expressions/m_fx_smzdm.xpath
         monitor "" "http://m.faxian.smzdm.com"  "$pt" "$p" "$q"
         if [ -s "$sms_file" ];
         then
@@ -132,6 +133,7 @@ pull()
 }
 
 pull "xpath_expressions/m_smzdm.xpath" "xpath_expressions/m_smzdm.xpath"
+pull "xpath_expressions/m_fx_smzdm.xpath" "xpath_expressions/m_fx_smzdm.xpath"
 main $*
 if [ ! -e "xpath_expressions/m_fx_smzdm.xpath" ]; then
 pull "xpath_expressions/m_fx_smzdm.xpath" "xpath_expressions/m_fx_smzdm.xpath"
