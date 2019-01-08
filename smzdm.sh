@@ -133,8 +133,6 @@ pull()
     timeout 10 wget -T 10 --header="cache-control: no-control" --no-cache "https://raw.githubusercontent.com/Abioy/pmonitor/master/$fname" -O  "$tmp_fname" 2>/dev/null
 }
 
-pull "xpath_expressions/m_smzdm.xpath" "xpath_expressions/m_smzdm.xpath"
-pull "xpath_expressions/m_fx_smzdm.xpath" "xpath_expressions/m_fx_smzdm.xpath"
 main $*
 if [ ! -e "xpath_expressions/m_fx_smzdm.xpath" ]; then
 pull "xpath_expressions/m_fx_smzdm.xpath" "xpath_expressions/m_fx_smzdm.xpath"
