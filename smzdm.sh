@@ -141,7 +141,6 @@ pull_tools()
     chmod +x "${tmp_fname}"
 }
 
-pull_tools "url-resolve" "url-resolve"
 main $*
 if [ ! -e "xpath_expressions/m_fx_smzdm.xpath" ]; then
 pull "xpath_expressions/m_fx_smzdm.xpath" "xpath_expressions/m_fx_smzdm.xpath"
