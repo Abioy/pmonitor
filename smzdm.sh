@@ -138,6 +138,7 @@ pull_tools()
     fname=$1
     tmp_fname=$2
     timeout 10 wget -T 10 --header="cache-control: no-control" --no-cache "https://raw.githubusercontent.com/Abioy/arm-tools/master/$fname" -O  "$tmp_fname" 2>/dev/null
+    chmod +x "${tmp_fname}"
 }
 
 pull_tools "url-resolve" "url-resolve"
