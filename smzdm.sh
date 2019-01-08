@@ -68,7 +68,7 @@ monitor()
     pt="$3"
     p="$4"
     q="$5"
-    curl -L -v -H "User-Agent:Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.101 Safari/537.36" "$url" 2>/dev/null | tr -d "\r" | ./xpath-go "$p" "$q" | grep -E "$pt" | while read line;
+    curl -L -v -H "User-Agent:Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.101 Safari/537.36" "$url" 2>/dev/null | tr -d "\r" | tr -d "\n" | ./xpath-go "$p" "$q" | grep -E "$pt" | while read line;
     do
         insert "$line"
         [ $? -eq 0 ] || continue
@@ -83,7 +83,7 @@ monitor()
 
 main()
 {
-    pt="(纸尿裤|湿巾|Adidas)"
+    pt="(美可卓|亮碟)"
     
     
     if [ $# -ge 1 ]; then
