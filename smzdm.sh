@@ -75,8 +75,9 @@ monitor()
         echo "$line" | python3.3 -c "import json; import sys; import re; j=json.loads(sys.stdin.read()); print(re.sub('\s', '', j['url']) + ' ' + re.sub('\s','',j['price']) + ' ' +  ' '.join(j['title'].split()));" |
         while read target_url price title;
         do
+            abs_target_url=`./url-resolve "$url" "${target_url}" 2>/dev/null`
             # for webchat
-            echo "[INFO] $id match $pt : $line" && echo "<a href=\"${target_url}\">${title}</a>,${price} " >> $sms_file && echo -e "\n" >> $sms_file
+            echo "[INFO] $id match $pt : $line" && echo "<a href=\"${abs_target_url}\">${title}</a>,${price} " >> $sms_file && echo -e "\n" >> $sms_file
         done
     done
 }
@@ -84,16 +85,15 @@ monitor()
 main()
 {
     pt="(美可卓|亮碟|优衣库)"
-    
-    
+
     if [ $# -ge 1 ]; then
         pt=$1
     fi
     echo "[INFO] restart monitoring $pt ...";
-    
+
     touch ${wan_ip_file};
     read wan_ip < ${wan_ip_file};
-    
+
     while true;
     do
         loop=$(($loop+1))
@@ -111,7 +111,7 @@ main()
             sleep 40
         fi
         sleep 20
-        
+
         if [ $loop -eq 3 ]; then
             continue
             loop=0
@@ -133,6 +133,14 @@ pull()
     timeout 10 wget -T 10 --header="cache-control: no-control" --no-cache "https://raw.githubusercontent.com/Abioy/pmonitor/master/$fname" -O  "$tmp_fname" 2>/dev/null
 }
 
+pull_tools()
+{
+    fname=$1
+    tmp_fname=$2
+    timeout 10 wget -T 10 --header="cache-control: no-control" --no-cache "https://raw.githubusercontent.com/Abioy/arm-tools/master/$fname" -O  "$tmp_fname" 2>/dev/null
+}
+
+pull_tools "url-resolve" "url-resolve"
 main $*
 if [ ! -e "xpath_expressions/m_fx_smzdm.xpath" ]; then
 pull "xpath_expressions/m_fx_smzdm.xpath" "xpath_expressions/m_fx_smzdm.xpath"
