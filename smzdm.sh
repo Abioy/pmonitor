@@ -2,6 +2,7 @@
 
 sms_file="log/sms_msg"
 wan_ip_file="wan_ip"
+pt_file="last_pt"
 declare wan_ip=""
 declare loop=2
 
@@ -93,6 +94,13 @@ main()
 
     touch ${wan_ip_file};
     read wan_ip < ${wan_ip_file};
+    touch ${pt_file};
+    read last_pt < ${pt_file};
+    if [ "X${last_pt}" != "X${pt}" ]; then
+        echo "[INFO] pattern change. ${last_pt} -> ${pt}"
+        notify "monitor pt change: ${last_pt} -> ${pt}"
+        echo "${pt}" > ${pt_file}
+    fi
 
     while true;
     do
