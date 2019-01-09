@@ -84,7 +84,7 @@ monitor()
 
 main()
 {
-    pt="(美可卓|亮碟)"
+    pt="(美可卓|亮碟|简境)"
 
     if [ $# -ge 1 ]; then
         pt=$1
