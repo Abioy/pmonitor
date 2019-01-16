@@ -69,7 +69,7 @@ monitor()
     pt="$3"
     p="$4"
     q="$5"
-    curl -L -v -H "User-Agent:Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.101 Safari/537.36" "$url" 2>/dev/null | tr -d "\r" | tr -d "\n" | ./xpath-go "$p" "$q" | grep -E "$pt" | while read line;
+    curl -L -v -H "User-Agent:Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.101 Safari/537.36" "$url" 2>/dev/null | tr -d "\r" | tr -d "\n" | ./xpath-go "$p" "$q" | awk 'BEGIN{IGNORECASE=1} '$pt | while read line;
     do
         insert "$line"
         [ $? -eq 0 ] || continue
@@ -78,21 +78,14 @@ monitor()
         do
             abs_target_url=`./url-resolve "$url" "${target_url}" 2>/dev/null`
             # for webchat
-            echo "[INFO] $id match $pt : $line" && echo "<a href=\"${abs_target_url}\">${title}</a>,${price} " >> $sms_file && echo -e "\n" >> $sms_file
+            echo "[INFO] $id match: $line" && echo "<a href=\"${abs_target_url}\">${title}</a>,${price} " >> $sms_file && echo -e "\n" >> $sms_file
         done
     done
 }
 
 main()
 {
-    chk_awk_msg=`echo -e "check awk OK" | awk '/NO/||/awk/&&/OK|ok/'`;
-    if [ "X${chk_awk_msg}" != "X" ]; then
-        notify "${chk_awk_msg}"
-    else
-        notify "check awk ERROR"
-    fi
-
-    pt="(美可卓|亮碟|简境|纸尿裤)"
+    pt="/美可卓|亮碟|简境/||/纸尿裤/&&/花王|kao|大王|GOO|妙而舒|Merries|Pampers|帮宝适|moony|尤妮佳|妈咪宝贝|Mamypoko|减|券|折/"
 
     if [ $# -ge 1 ]; then
         pt=$1
@@ -121,7 +114,7 @@ main()
         then
             msg=`cat $sms_file | tr "\n" " "`
             echo "[INFO] send ! `echo $msg`"
-            notify "got $pt: $msg"
+            notify "got: $msg"
             rm -f "$sms_file"
             sleep 40
         fi
