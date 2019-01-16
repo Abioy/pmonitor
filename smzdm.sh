@@ -85,6 +85,11 @@ monitor()
 
 main()
 {
+    chk_awk_msg=`echo -e "check awk OK" | awk '/NO/||/awk/&&/OK|ok/'`;
+    if [ "X${chk_awk_msg}" != "X" ]; then
+        notify "${chk_awk_msg}"
+    fi
+
     pt="(美可卓|亮碟|简境|纸尿裤)"
 
     if [ $# -ge 1 ]; then
