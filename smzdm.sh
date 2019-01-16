@@ -88,6 +88,8 @@ main()
     chk_awk_msg=`echo -e "check awk OK" | awk '/NO/||/awk/&&/OK|ok/'`;
     if [ "X${chk_awk_msg}" != "X" ]; then
         notify "${chk_awk_msg}"
+    else
+        notify "check awk ERROR"
     fi
 
     pt="(美可卓|亮碟|简境|纸尿裤)"
