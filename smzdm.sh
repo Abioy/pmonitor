@@ -9,7 +9,7 @@ declare loop=2
 insert()
 {
     data="$1"
-    fname=`echo $data | md5sum | awk '{print $1}'`
+    fname=`echo "$data" | md5sum | awk '{print $1}'`
     fpath=db/$fname
     if [ -e $fpath ];
     then
@@ -58,7 +58,7 @@ notify()
 
     wx_txt_msg "$msg"
     [ $? -eq 0 ] || rc=1
-    
+
     return $rc
 }
 
@@ -71,12 +71,16 @@ monitor()
     q="$5"
     curl -L -v -H "User-Agent:Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.101 Safari/537.36" "$url" 2>/dev/null | tr -d "\r" | tr -d "\n" | ./xpath-go "$p" "$q" | awk 'BEGIN{IGNORECASE=1} '$pt | while read line;
     do
-        insert "$line"
-        [ $? -eq 0 ] || continue
         echo "$line" | python3.3 -c "import json; import sys; import re; j=json.loads(sys.stdin.read()); print(re.sub('\s', '', j['url']) + ' ' + re.sub('\s','',j['price']) + ' ' +  ' '.join(j['title'].split()));" |
         while read target_url price title;
         do
             abs_target_url=`./url-resolve "$url" "${target_url}" 2>/dev/null`
+            key="${abs_target_url}"
+            if [ "X${key}" == "X" ]; then
+                key="${line}"
+            fi
+            insert "${key}"
+            [ $? -eq 0 ] || continue
             # for webchat
             echo "[INFO] $id match: $line" && echo "<a href=\"${abs_target_url}\">${title}</a>,${price} " >> $sms_file && echo -e "\n" >> $sms_file
         done
