@@ -89,7 +89,7 @@ monitor()
 
 main()
 {
-    pt="/美可卓|亮碟|简境/||/纸尿裤/&&/花王|kao|大王|GOO|妙而舒|Merries|Pampers|帮宝适|moony|尤妮佳|妈咪宝贝|Mamypoko|减|券|折/"
+    pt="/美可卓|亮碟|简境/||/纸尿裤/&&/花王|kao|大王|GOO|妙而舒|Merries|moony|尤妮佳|妈咪宝贝|Mamypoko|减|券|折/"
 
     if [ $# -ge 1 ]; then
         pt=$1
