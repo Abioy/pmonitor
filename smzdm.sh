@@ -111,9 +111,9 @@ main()
         loop=$(($loop+1))
         sms_file="log/sms_msg.`date +%s`"
         read p q < ./xpath_expressions/m_smzdm.xpath
-        monitor "" "http://m.smzdm.com"  "$pt" "$p" "$q"
+        monitor "" "https://m.smzdm.com"  "$pt" "$p" "$q"
         read p q < ./xpath_expressions/m_fx_smzdm.xpath
-        monitor "" "http://m.faxian.smzdm.com"  "$pt" "$p" "$q"
+        monitor "" "https://m.faxian.smzdm.com"  "$pt" "$p" "$q"
         if [ -s "$sms_file" ];
         then
             msg=`cat $sms_file | tr "\n" " "`
