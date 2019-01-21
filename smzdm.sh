@@ -113,7 +113,7 @@ main()
         read p q < ./xpath_expressions/m_smzdm.xpath
         monitor "" "https://m.smzdm.com"  "$pt" "$p" "$q"
         read p q < ./xpath_expressions/m_fx_smzdm.xpath
-        monitor "" "https://m.faxian.smzdm.com"  "$pt" "$p" "$q"
+        monitor "" "https://faxian.m.smzdm.com"  "$pt" "$p" "$q"
         if [ -s "$sms_file" ];
         then
             msg=`cat $sms_file | tr "\n" " "`
