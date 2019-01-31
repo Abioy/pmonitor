@@ -90,7 +90,7 @@ monitor()
 main()
 {
     pt="/美可卓|亮碟|简境/||/纸尿裤/&&/大王|GOO|妙而舒|Merries|moony|尤妮佳|妈咪宝贝|Mamypoko|减|券|折/"
-    pt="/美可卓|亮碟|简境|钙片/"
+    pt="/美可卓|亮碟|简境/"
 
     if [ $# -ge 1 ]; then
         pt=$1
